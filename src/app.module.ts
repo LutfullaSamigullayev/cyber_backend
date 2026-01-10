@@ -1,7 +1,8 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { AuthModule } from './module/auth/auth.module';
+import { HealthModule } from "./module/health/health.module";
+import { AuthModule } from "./module/auth/auth.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './module/auth/auth.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    HealthModule,
     AuthModule,
   ],
   controllers: [],
