@@ -28,7 +28,7 @@ jobs:
           APP_DIR: /cyber/cyber_backend
           PORT: ${{ secrets.PORT }}
         run: |
-          ssh $USER@$HOST << 'EOF'
+          ssh $USER@$HOST << EOF
             set -e
 
             if [ ! -d "$APP_DIR" ]; then
