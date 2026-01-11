@@ -31,18 +31,18 @@ jobs:
           JWT_EXPIRES: ${{ secrets.JWT_EXPIRES }}
         run: |
           ssh $USER@$HOST << 'EOF'
-            set -e
+          set -e
 
-            mkdir -p $APP_DIR
-            cd $APP_DIR
+          mkdir -p "$APP_DIR"
+          cd "$APP_DIR"
 
-            if [ ! -d .git ]; then
-              git clone https://github.com/LutfullaSamigullayev/cyber_backend .
-            else
-              git pull origin main
-            fi
+          if [ ! -d .git ]; then
+            git clone https://github.com/LutfullaSamigullayev/cyber_backend .
+          else
+            git pull origin main
+          fi
 
-            cat > .env << EOL
+          cat > .env << EOL
 PORT=${PORT}
 DB_NAME=${DB_NAME}
 DB_PASSWORD=${DB_PASSWORD}
@@ -50,10 +50,10 @@ JWT_SECRET=${JWT_SECRET}
 JWT_EXPIRES=${JWT_EXPIRES}
 EOL
 
-            npm install
-            npm run build
+          npm install
+          npm run build
 
-            pm2 delete cyber_backend || true
-            pm2 start dist/main.js --name cyber_backend
-            pm2 save
+          pm2 delete cyber_backend || true
+          pm2 start dist/main.js --name cyber_backend
+          pm2 save
           EOF
