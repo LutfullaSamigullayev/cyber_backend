@@ -6,17 +6,17 @@ import { User } from "./entities/user.entity";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { JwtStrategy } from "src/common/strategy/jwt.strategy";
+import { jwtConstants } from "src/common/constants/jwt-constants";
+
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: jwtConstants.secret,
       signOptions: {
-        expiresIn: process.env.JWT_EXPIRES
-          ? parseInt(process.env.JWT_EXPIRES, 10)
-          : undefined,
+        expiresIn: jwtConstants.expiresIn
       },
     }),
   ],
