@@ -27,6 +27,10 @@ jobs:
           USER: ${{ secrets.USERNAME }}
           APP_DIR: /cyber/cyber_backend
           PORT: ${{ secrets.PORT }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_EXPIRES: ${{ secrets.JWT_EXPIRES }}
         run: |
           ssh $USER@$HOST << EOF
             set -e
