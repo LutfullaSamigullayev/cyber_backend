@@ -1,3 +1,4 @@
+import { isString } from "class-validator";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -7,9 +8,9 @@ import {
 
 @Entity("users")
 export class User {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-w
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column({ unique: true })
   email: string;
 
