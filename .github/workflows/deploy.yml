@@ -30,7 +30,7 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_EXPIRES: ${{ secrets.JWT_EXPIRES }}
         run: |
-          ssh $USER@$HOST << 'EOF'
+          ssh $USER@$HOST << EOF
           set -e
 
           mkdir -p "$APP_DIR"
