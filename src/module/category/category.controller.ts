@@ -19,10 +19,10 @@ import {
 import { CategoryService } from "./category.service";
 import { CreateCategoryDto } from "./dto/create-category.dto";
 import { UpdateCategoryDto } from "./dto/update-category.dto";
-import { AuthGuard } from "src/common/guards/auth-guard";
 import { RolesGuard } from "src/common/guards/roles.guard";
 import { Roles } from "src/common/decorators/roles.decorator";
 import { UserRole } from "src/common/constants/role";
+import { Public } from "src/common/decorators/public.decorator";
 
 @ApiTags("Category")
 @Controller("category")
@@ -38,7 +38,7 @@ export class CategoryController {
   @ApiResponse({ status: 201, description: "Kategoriya yaratildi" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden (Admin emas)" })
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(RolesGuard)
   @Roles(UserRole.ADMIN)
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
@@ -51,6 +51,7 @@ export class CategoryController {
     description: "Public endpoint",
   })
   @ApiResponse({ status: 200, description: "Kategoriya ro‘yxati" })
+  @Public()
   @Get()
   findAll() {
     return this.categoryService.findAll();
@@ -67,6 +68,7 @@ export class CategoryController {
   })
   @ApiResponse({ status: 200, description: "Kategoriya topildi" })
   @ApiResponse({ status: 404, description: "Kategoriya topilmadi" })
+  @Public()
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.categoryService.findOne(+id);
@@ -78,13 +80,10 @@ export class CategoryController {
     summary: "Kategoriya yangilash",
     description: "⚠️ Faqat ADMIN uchun",
   })
-  @ApiParam({
-    name: "id",
-    example: 1,
-  })
+  @ApiParam({ name: "id", example: 1 })
   @ApiResponse({ status: 200, description: "Kategoriya yangilandi" })
   @ApiResponse({ status: 403, description: "Forbidden" })
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(RolesGuard)
   @Roles(UserRole.ADMIN)
   @Patch(":id")
   update(
@@ -100,13 +99,10 @@ export class CategoryController {
     summary: "Kategoriya o‘chirish",
     description: "⚠️ Faqat ADMIN uchun",
   })
-  @ApiParam({
-    name: "id",
-    example: 1,
-  })
+  @ApiParam({ name: "id", example: 1 })
   @ApiResponse({ status: 200, description: "Kategoriya o‘chirildi" })
   @ApiResponse({ status: 403, description: "Forbidden" })
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(RolesGuard)
   @Roles(UserRole.ADMIN)
   @Delete(":id")
   remove(@Param("id") id: string) {
