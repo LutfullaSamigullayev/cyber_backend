@@ -4,6 +4,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { HealthModule } from "./module/health/health.module";
 import { AuthModule } from "./module/auth/auth.module";
 import { CategoryModule } from "./module/category/category.module";
+import { ProductModule } from "./module/product/product.module";
 
 @Module({
   imports: [
@@ -18,9 +19,11 @@ import { CategoryModule } from "./module/category/category.module";
       autoLoadEntities: true,
       synchronize: true,
     }),
-    HealthModule,
     AuthModule,
     CategoryModule,
+    ProductModule,
+    
+    HealthModule,
   ],
   controllers: [],
   providers: [],
