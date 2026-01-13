@@ -1,3 +1,4 @@
+import { Address } from "src/module/address/entities/address.entity";
 import { User } from "src/module/auth/entities/user.entity";
 import {
   Entity,
@@ -5,6 +6,7 @@ import {
   Column,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 
 @Entity("profiles")
@@ -27,4 +29,7 @@ export class Profile {
   @OneToOne(() => User, { onDelete: "CASCADE" })
   @JoinColumn()
   user: User;
+
+  @OneToMany(() => Address, (address) => address.profile)
+  addresses: Address[];
 }
