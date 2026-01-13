@@ -7,6 +7,8 @@ import {
   OneToOne,
   JoinColumn,
   OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 @Entity("profiles")
@@ -32,4 +34,10 @@ export class Profile {
 
   @OneToMany(() => Address, (address) => address.profile)
   addresses: Address[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
