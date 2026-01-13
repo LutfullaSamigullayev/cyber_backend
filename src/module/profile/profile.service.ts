@@ -27,24 +27,24 @@ export class ProfileService {
     return this.profileRepo.save(profile);
   }
 
-  async findMyProfile(userId: number) {
+  async findOne(id: number) {
     const profile = await this.profileRepo.findOne({
-      where: { user: { id: userId } },
-      relations: ["user"],
+      where: { id },
+      relations: ["user", "addresses"],
     });
 
     if (!profile) throw new NotFoundException("Profile not found");
     return profile;
   }
 
-  async update(userId: number, dto: UpdateProfileDto) {
-    const profile = await this.findMyProfile(userId);
+  async update(id: number, dto: UpdateProfileDto) {
+    const profile = await this.findOne(id);
     Object.assign(profile, dto);
     return this.profileRepo.save(profile);
   }
 
-  async remove(userId: number) {
-    const profile = await this.findMyProfile(userId);
+  async remove(id: number) {
+    const profile = await this.findOne(id);
     return this.profileRepo.remove(profile);
   }
 }
