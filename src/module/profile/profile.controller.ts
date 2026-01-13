@@ -11,12 +11,10 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { ProfileService } from "./profile.service";
 import { CreateProfileDto } from "./dto/create-profile.dto";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
-import { AuthGuard } from "src/common/guards/auth-guard";
 import { CurrentUser } from "src/common/decorators/current-user.decorator";
 
 @ApiTags("Profile")
 @ApiBearerAuth()
-@UseGuards(AuthGuard)
 @Controller("profile")
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
