@@ -5,6 +5,8 @@ import { HealthModule } from "./module/health/health.module";
 import { AuthModule } from "./module/auth/auth.module";
 import { CategoryModule } from "./module/category/category.module";
 import { ProductModule } from "./module/product/product.module";
+import { ProfileModule } from "./module/profile/profile.module";
+import { AddressModule } from "./module/address/address.module";
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { ProductModule } from "./module/product/product.module";
     AuthModule,
     CategoryModule,
     ProductModule,
+    ProfileModule,
+    AddressModule,
     
     HealthModule,
   ],
