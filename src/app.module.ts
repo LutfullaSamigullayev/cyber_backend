@@ -1,12 +1,13 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { HealthModule } from "./module/health/health.module";
 import { AuthModule } from "./module/auth/auth.module";
-import { CategoryModule } from "./module/category/category.module";
-import { ProductModule } from "./module/product/product.module";
 import { ProfileModule } from "./module/profile/profile.module";
 import { AddressModule } from "./module/address/address.module";
+import { CategoryModule } from "./module/category/category.module";
+import { ProductModule } from "./module/product/product.module";
+import { ShippingModule } from "./module/shipping/shipping.module";
+import { HealthModule } from "./module/health/health.module";
 
 @Module({
   imports: [
@@ -22,10 +23,12 @@ import { AddressModule } from "./module/address/address.module";
       synchronize: true,
     }),
     AuthModule,
-    CategoryModule,
-    ProductModule,
     ProfileModule,
     AddressModule,
+    
+    CategoryModule,
+    ShippingModule,
+    ProductModule,
     
     HealthModule,
   ],
