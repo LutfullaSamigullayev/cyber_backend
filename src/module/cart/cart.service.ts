@@ -19,15 +19,18 @@ export class CartService {
     private readonly productRepo: Repository<Product>,
   ) {}
 
-  async getActiveCart(userId: number) {
+  async getActiveCart(profileId: number) {
     let cart = await this.cartRepo.findOne({
-      where: { user: { id: userId }, status: CartStatus.ACTIVE },
+      where: {
+        profile: { id: profileId },
+        status: CartStatus.ACTIVE,
+      },
       relations: ["items", "items.product"],
     });
 
     if (!cart) {
       cart = this.cartRepo.create({
-        user: { id: userId } as any,
+        profile: { id: profileId } as any,
       });
       await this.cartRepo.save(cart);
     }
@@ -35,8 +38,8 @@ export class CartService {
     return cart;
   }
 
-  async addToCart(userId: number, dto: AddToCartDto) {
-    const cart = await this.getActiveCart(userId);
+  async addToCart(profileId: number, dto: AddToCartDto) {
+    const cart = await this.getActiveCart(profileId);
 
     const product = await this.productRepo.findOne({
       where: { id: dto.productId },
@@ -66,9 +69,7 @@ export class CartService {
   }
 
   async updateItem(itemId: number, quantity: number) {
-    const item = await this.cartItemRepo.findOne({
-      where: { id: itemId },
-    });
+    const item = await this.cartItemRepo.findOne({ where: { id: itemId } });
 
     if (!item) {
       throw new NotFoundException("Cart item not found");
@@ -79,9 +80,7 @@ export class CartService {
   }
 
   async removeItem(itemId: number) {
-    const item = await this.cartItemRepo.findOne({
-      where: { id: itemId },
-    });
+    const item = await this.cartItemRepo.findOne({ where: { id: itemId } });
 
     if (!item) {
       throw new NotFoundException("Cart item not found");
