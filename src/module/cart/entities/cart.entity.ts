@@ -20,11 +20,11 @@ export class Cart {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // ✅ USER EMAS, PROFILE
+  // ✅ ANIQ VA TO‘G‘RI
   @ManyToOne(() => Profile, (profile) => profile.carts, {
     onDelete: "CASCADE",
   })
-  user: Profile;
+  profile: Profile;
 
   @Column({
     type: "enum",
@@ -33,9 +33,7 @@ export class Cart {
   })
   status: CartStatus;
 
-  @OneToMany(() => CartItem, (item) => item.cart, {
-    cascade: true,
-  })
+  @OneToMany(() => CartItem, (item) => item.cart, { cascade: true })
   items: CartItem[];
 
   @CreateDateColumn()
