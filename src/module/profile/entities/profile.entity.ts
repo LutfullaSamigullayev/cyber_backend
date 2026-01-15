@@ -40,7 +40,7 @@ export class Profile {
   @OneToMany(() => Favorite, (favorite) => favorite.profile)
   favorites: Favorite[];
 
-  @OneToMany(() => Cart, (cart) => cart.user)
+  @OneToMany(() => Cart, (cart) => cart.profile)
   carts: Cart[];
 
   @CreateDateColumn()
