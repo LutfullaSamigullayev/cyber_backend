@@ -1,5 +1,6 @@
 import { Address } from "src/module/address/entities/address.entity";
 import { User } from "src/module/auth/entities/user.entity";
+import { Cart } from "src/module/cart/entities/cart.entity";
 import { Favorite } from "src/module/favorite/entities/favorite.entity";
 import {
   Entity,
@@ -38,6 +39,9 @@ export class Profile {
 
   @OneToMany(() => Favorite, (favorite) => favorite.profile)
   favorites: Favorite[];
+
+  @OneToMany(() => Cart, (cart) => cart.user)
+  carts: Cart[];
 
   @CreateDateColumn()
   createdAt: Date;
