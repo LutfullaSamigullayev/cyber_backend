@@ -2,6 +2,7 @@ import { Address } from "src/module/address/entities/address.entity";
 import { User } from "src/module/auth/entities/user.entity";
 import { Cart } from "src/module/cart/entities/cart.entity";
 import { Favorite } from "src/module/favorite/entities/favorite.entity";
+import { Order } from "src/module/order/entities/order.entity";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -42,6 +43,9 @@ export class Profile {
 
   @OneToMany(() => Cart, (cart) => cart.profile)
   carts: Cart[];
+
+  @OneToMany(() => Order, (order) => order.profile)
+  orders: Order[];
 
   @CreateDateColumn()
   createdAt: Date;
