@@ -10,12 +10,15 @@ import { User } from "./entities/user.entity";
 import { JwtService } from "@nestjs/jwt";
 import { RegisterDto } from "./dto/register.dto";
 import { LoginDto } from "./dto/login.dto";
+import { Profile } from "src/module/profile/entities/profile.entity";
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
+    @InjectRepository(Profile)
+    private readonly profileRepo: Repository<Profile>,
     private readonly jwtService: JwtService
   ) {}
 
@@ -57,10 +60,15 @@ export class AuthService {
       throw new UnauthorizedException("Invalid credentials");
     }
 
+    const profile = await this.profileRepo.findOne({
+      where: { user: { id: user.id } },
+    });
+
     const payload = {
       sub: user.id,
       email: user.email,
       role: user.role,
+      profile: profile ? { id: profile.id } : null,
     };
 
     return {
