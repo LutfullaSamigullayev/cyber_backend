@@ -30,5 +30,4 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
-    comments: any;
 }
