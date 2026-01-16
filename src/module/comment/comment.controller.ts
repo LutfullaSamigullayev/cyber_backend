@@ -16,7 +16,6 @@ import {
 import { CommentService } from "./comment.service";
 import { CreateCommentDto } from "./dto/create-comment.dto";
 import { CurrentUser } from "src/common/decorators/current-user.decorator";
-import { User } from "../auth/entities/user.entity";
 
 @ApiTags("Comments")
 @ApiBearerAuth()
@@ -31,9 +30,9 @@ export class CommentController {
   })
   create(
     @Body() dto: CreateCommentDto,
-    @CurrentUser() user: User,
+    @CurrentUser("profile.id") profileId: number,
   ) {
-    return this.commentService.create(dto, user);
+    return this.commentService.create(dto, profileId);
   }
 
   // 📄 Get product comments
