@@ -4,7 +4,6 @@ import { Comment } from "./entities/comment.entity";
 import { CommentService } from "./comment.service";
 import { CommentController } from "./comment.controller";
 import { Product } from "../product/entities/product.entity";
-import { Order } from "../order/entities/order.entity";
 import { OrderItem } from "../order/entities/order-item.entity";
 
 @Module({
@@ -12,7 +11,6 @@ import { OrderItem } from "../order/entities/order-item.entity";
     TypeOrmModule.forFeature([
       Comment,
       Product,
-      Order,
       OrderItem,
     ]),
   ],
