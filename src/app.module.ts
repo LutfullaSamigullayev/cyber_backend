@@ -10,6 +10,7 @@ import { ShippingModule } from "./module/shipping/shipping.module";
 import { HealthModule } from "./module/health/health.module";
 import { FavoritesModule } from "./module/favorite/favorite.module";
 import { CartModule } from "./module/cart/cart.module";
+import { OrderModule } from "./module/order/order.module";
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { CartModule } from "./module/cart/cart.module";
     ProductModule,
     FavoritesModule,
     CartModule,
+    OrderModule,
     
     HealthModule,
   ],
