@@ -7,11 +7,12 @@ import { JwtModule } from "@nestjs/jwt";
 import { jwtConstants } from "src/common/constants/jwt-constants";
 import { APP_GUARD } from "@nestjs/core";
 import { AuthGuard } from "src/common/guards/auth-guard";
+import { Profile } from "src/module/profile/entities/profile.entity";
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Profile]),
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: {
