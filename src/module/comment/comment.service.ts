@@ -8,9 +8,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Comment } from "./entities/comment.entity";
 import { CreateCommentDto } from "./dto/create-comment.dto";
-import { User } from "../auth/entities/user.entity";
 import { Product } from "../product/entities/product.entity";
-import { Order } from "../order/entities/order.entity";
 import { OrderItem } from "../order/entities/order-item.entity";
 
 @Injectable()
@@ -22,14 +20,11 @@ export class CommentService {
     @InjectRepository(Product)
     private readonly productRepo: Repository<Product>,
 
-    @InjectRepository(Order)
-    private readonly orderRepo: Repository<Order>,
-
     @InjectRepository(OrderItem)
     private readonly orderItemRepo: Repository<OrderItem>,
   ) {}
 
-  async create(dto: CreateCommentDto, user: User) {
+  async create(dto: CreateCommentDto, profileId: number) {
     const product = await this.productRepo.findOne({
       where: { id: dto.productId },
     });
@@ -38,11 +33,11 @@ export class CommentService {
       throw new NotFoundException("Product topilmadi");
     }
 
-    // 🔐 USER ORDER QILGANMI?
     const ordered = await this.orderItemRepo
       .createQueryBuilder("item")
       .leftJoin("item.order", "order")
-      .where("order.userId = :userId", { userId: user.id })
+      .leftJoin("order.profile", "profile")
+      .where("profile.id = :profileId", { profileId })
       .andWhere("item.productId = :productId", {
         productId: dto.productId,
       })
@@ -56,7 +51,7 @@ export class CommentService {
 
     const exists = await this.commentRepo.findOne({
       where: {
-        user: { id: user.id },
+        profile: { id: profileId },
         product: { id: product.id },
       },
     });
@@ -71,7 +66,7 @@ export class CommentService {
       text: dto.text,
       rating: dto.rating,
       images: dto.images,
-      user,
+      profile: { id: profileId } as any,
       product,
     });
 
@@ -81,7 +76,7 @@ export class CommentService {
   async findByProduct(productId: number) {
     return this.commentRepo.find({
       where: { product: { id: productId } },
-      relations: ["user"],
+      relations: ["profile"],
       order: { createdAt: "DESC" },
     });
   }
