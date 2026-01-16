@@ -4,7 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
+import { Comment } from "src/module/comment/entities/comment.entity";
 
 @Entity("products")
 export class Product {
@@ -28,6 +30,9 @@ export class Product {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @OneToMany(() => Comment, (comment) => comment.product)
+  comments: Comment[];
 
   @CreateDateColumn()
   createdAt: Date;
