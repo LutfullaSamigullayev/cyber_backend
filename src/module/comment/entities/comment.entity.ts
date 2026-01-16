@@ -7,11 +7,11 @@ import {
   UpdateDateColumn,
   Unique,
 } from "typeorm";
-import { User } from "src/module/auth/entities/user.entity";
+import { Profile } from "src/module/profile/entities/profile.entity";
 import { Product } from "src/module/product/entities/product.entity";
 
 @Entity("comments")
-@Unique(["user", "product"]) // 1 user = 1 comment per product
+@Unique(["profile", "product"]) // 1 user = 1 comment per product
 export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,10 +25,10 @@ export class Comment {
   @Column({ type: "jsonb", nullable: true })
   images?: string[];
 
-  @ManyToOne(() => User, (user) => user.comments, {
+  @ManyToOne(() => Profile, (profile) => profile.comments, {
     onDelete: "CASCADE",
   })
-  user: User;
+  profile: Profile;
 
   @ManyToOne(() => Product, {
     onDelete: "CASCADE",
