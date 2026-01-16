@@ -48,7 +48,7 @@ export class Profile {
   @OneToMany(() => Order, (order) => order.profile)
   orders: Order[];
 
-  @OneToMany(() => Comment, (comment) => comment.user)
+  @OneToMany(() => Comment, (comment) => comment.profile)
   comments: Comment[];
 
   @CreateDateColumn()
