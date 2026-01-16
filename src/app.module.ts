@@ -11,6 +11,7 @@ import { HealthModule } from "./module/health/health.module";
 import { FavoritesModule } from "./module/favorite/favorite.module";
 import { CartModule } from "./module/cart/cart.module";
 import { OrderModule } from "./module/order/order.module";
+import { CommentModule } from "./module/comment/comment.module";
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { OrderModule } from "./module/order/order.module";
     FavoritesModule,
     CartModule,
     OrderModule,
+    CommentModule,
     
     HealthModule,
   ],
